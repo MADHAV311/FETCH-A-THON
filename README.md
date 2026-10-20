@@ -3,6 +3,25 @@
 
 ---
 
+## 📸 Prototype Showcase & Visual Tour
+
+| 1. Live AI Adaptive Twin & Indian ESG ROI | 2. 108 Ambulance Preemption & Pole Sirens |
+| :---: | :---: |
+| ![Live Dashboard](screenshots/01_trafficflow_main_dashboard.png) | ![108 Ambulance Priority](screenshots/02_ambulance_directional_pole_sirens.png) |
+| *Cyber-Dark Canvas with Real-Time Webster AI & ₹ Savings* | *115dB Directional Acoustic Wave + Green Carpet Preemption* |
+
+| 3. Critical Crash Detection & 108 Auto-CAD | 4. Minor Scrape 108 CAD Call Suppression |
+| :---: | :---: |
+| ![Critical 108 CAD](screenshots/03_critical_accident_108_cad_dispatch.png) | ![Minor Scrape Suppressed](screenshots/04_minor_accident_triage_suppression.png) |
+| *6.8G Crash -> Auto-CAD to Trauma Center + Red Lockdown* | *1.3G Scrape -> AI Suppresses 108 Call to Protect Bandwidth* |
+
+| 5. Barnes Dance All-Pedestrian Scramble | 6. Benchmark: Fixed-Time vs AI Adaptive |
+| :---: | :---: |
+| ![Pedestrian Scramble](screenshots/05_pedestrian_barnes_dance_scramble.png) | ![Fixed vs Adaptive](screenshots/07_fixed_vs_adaptive_analytics.png) |
+| *All-Red Vehicle Lockdown + Radiant Neon Crosswalks* | *41.4% Delay Reduction & 43% Shorter Queues Evaluated* |
+
+---
+
 ## 🌟 Executive Summary
 **TrafficFlow-AI** is a production-grade, full-stack cyber-physical digital twin designed for modern Indian smart cities (benchmarked on a high-density **Metropolitan Arterial Corridor**). It pairs deep physical simulation (Intelligent Driver Model car-following kinematics, Poisson stochastic arrivals, and dilemma zone safety) with sub-second AI decision-making.
 

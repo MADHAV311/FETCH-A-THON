@@ -272,6 +272,15 @@ export class DashboardUI {
       });
     });
 
+    // Check initial URL hash for direct tab navigation
+    if (window.location.hash) {
+      const hashView = window.location.hash.replace('#', '');
+      const matchedBtn = Array.from(this.navBtns).find(b => b.dataset.view === hashView);
+      if (matchedBtn) {
+        setTimeout(() => matchedBtn.click(), 100);
+      }
+    }
+
     // Playback Controls
     this.btnPlayPause.addEventListener('click', async () => {
       this.isPlaying = !this.isPlaying;
