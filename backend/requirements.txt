@@ -1,9 +1,12 @@
-# AI Adaptive Traffic Signal Digital Twin
-# Full-Stack Autonomous Smart City & CAD Emergency Triage Platform
-# Built entirely with standard library Python (zero external dependencies required)
-# Python >= 3.8
+# TrafficFlow-AI: Smart City Adaptive Traffic Signal Digital Twin & Multi-Agent Swarm
+# Built for FETCH-A-THON 3.0 & ASI:ONE AGENT CHALLENGE
+# Python >= 3.10
 
-# Standard Library Modules Utilized:
+# Fetch.ai Multi-Agent Swarm & Agent Chat Protocol (ACP)
+uagents>=0.25.0
+uagents-core>=0.4.0
+
+# Core Simulation Engine: Standard Library (Zero heavy C++ or SUMO runtime required)
 # - http.server (ThreadingHTTPServer)
 # - threading
 # - json

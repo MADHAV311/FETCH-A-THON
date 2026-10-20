@@ -76,6 +76,7 @@
         <button class="nav-tab-btn active" data-view="dashboard">🚦 Live Simulation</button>
         <button class="nav-tab-btn" data-view="comparison">📊 Fixed vs Adaptive</button>
         <button class="nav-tab-btn" data-view="experiments">🧪 Experiments</button>
+        <button class="nav-tab-btn" data-view="swarm">🤖 Agent Swarm (Fetch.ai)</button>
         <button class="nav-tab-btn" data-view="settings">⚙️ Settings</button>
         <button class="nav-tab-btn" data-view="about">ℹ️ About</button>
       </div>
@@ -784,6 +785,88 @@
               <input type="range" id="setting-slider-max-green" min="20" max="90" value="45">
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4B: FETCH.AI MULTI-AGENT SWARM -->
+    <section id="view-swarm" class="view-section">
+      <div class="page-container">
+        <div class="page-header">
+          <h2>🤖 Fetch.ai Decentralized Multi-Agent Swarm & ASI:One Integration</h2>
+          <p>Decentralized Autonomous Agents coordinating traffic preemption, sub-second collision triage, and pedestrian safety over the Agent Chat Protocol (ACP).</p>
+        </div>
+
+        <div class="grid-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+          <div class="panel-card" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(0, 210, 106, 0.3); border-radius: 12px; padding: 20px;">
+            <h3 style="color: #00D26A; margin-bottom: 12px;">✨ Challenge: ASI:One Intent to Action</h3>
+            <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
+              Built for the <strong>ASI:One Agent Challenge</strong>. Our public gateway agent implements the official <code>uagents_core.contrib.protocols.chat</code> specifications. It takes natural language user intent on <strong>asi1.ai</strong> and immediately translates it into cyber-physical traffic actions (e.g. 108 ambulance green carpet preemption, 6.8G crash 108 CAD dispatch, and minor scrape suppression).
+            </p>
+            <div style="margin-top: 14px;">
+              <span class="badge-algo" style="background: rgba(121, 82, 222, 0.2); color: #A78BFA; border: 1px solid #7952DE;">Protocol: ACP 0.3.0</span>
+              <span class="badge-algo" style="background: rgba(0, 210, 106, 0.2); color: #00D26A; border: 1px solid #00D26A; margin-left: 8px;">Network: Fetch.ai Almanac</span>
+            </div>
+          </div>
+
+          <div class="panel-card" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 20px;">
+            <h3 style="color: #3B82F6; margin-bottom: 12px;">☁️ Agentverse 60-Second Cloud Deploy</h3>
+            <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6;">
+              Deploy our single-file self-contained agent to <strong>Agentverse.ai</strong> in 1 minute:
+            </p>
+            <ol style="color: var(--text-secondary); font-size: 13px; margin-left: 20px; line-height: 1.8;">
+              <li>Log in to <a href="https://agentverse.ai" target="_blank" style="color: #60A5FA;">agentverse.ai</a> &amp; click <strong>+ New Agent</strong>.</li>
+              <li>Copy code from <code>backend/agents/agentverse_hosted_agent.py</code>.</li>
+              <li>Paste into editor and click <strong>Start</strong>.</li>
+              <li>Chat on <a href="https://asi1.ai" target="_blank" style="color: #60A5FA;">asi1.ai</a> with your live public agent!</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="panel-card" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 20px;">
+          <h3 style="margin-bottom: 16px; color: var(--text-primary);">Active Swarm Agents &amp; Cryptographic Addresses</h3>
+          <table class="metrics-table" style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); text-align: left;">
+                <th style="padding: 10px;">Agent Name</th>
+                <th style="padding: 10px;">Module</th>
+                <th style="padding: 10px;">Role &amp; Real-World Action</th>
+                <th style="padding: 10px;">Cryptographic Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                <td style="padding: 12px; font-weight: 600; color: #60A5FA;">JunctionControllerAgent</td>
+                <td style="padding: 12px;"><code>agent_junction.py</code></td>
+                <td style="padding: 12px;">Manages signal phases, evaluates queue indices, grants 108 green carpet waves, triggers directional corner pole sirens A–D.</td>
+                <td style="padding: 12px;"><code style="font-size: 11px; color: #A78BFA;">agent1qv64chlcf8cuqfwl26mg6l8lp97ng8xvg88jsfkz903xetc6mxaq7zm8exa</code></td>
+              </tr>
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                <td style="padding: 12px; font-weight: 600; color: #EF4444;">EmergencyFleetAgent</td>
+                <td style="padding: 12px;"><code>agent_ambulance.py</code></td>
+                <td style="padding: 12px;">Autonomous 108 ALS Ambulance agent. Broadcasts authenticated route preemption requests and stopline ETA over A2A protocol.</td>
+                <td style="padding: 12px;"><code style="font-size: 11px; color: #A78BFA;">agent1qgs49qusgm4lylwpvf3pmkmlvhqsecvd6yelhwd3nvf8st5z8hy4c267naz</code></td>
+              </tr>
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                <td style="padding: 12px; font-weight: 600; color: #F59E0B;">TriageCADAgent</td>
+                <td style="padding: 12px;"><code>agent_triage.py</code></td>
+                <td style="padding: 12px;">Sub-second crash triage. Dispatches 108 CAD to Trauma Centers for 6.8G crashes; strictly suppresses minor 1.3G fender-benders to preserve hospital lines.</td>
+                <td style="padding: 12px;"><code style="font-size: 11px; color: #A78BFA;">agent1qt6ra3rkwu0fx95ca56hrj0akft3xwfm63yx8rt5tmkc6uzmhydxu8pgww5</code></td>
+              </tr>
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                <td style="padding: 12px; font-weight: 600; color: #10B981;">PedestrianVRUAgent</td>
+                <td style="padding: 12px;"><code>agent_pedestrian.py</code></td>
+                <td style="padding: 12px;">Vulnerable road user safety. Aggregates campus student crowd surges and commands Barnes Dance all-pedestrian scramble (all-red vehicular hold).</td>
+                <td style="padding: 12px;"><code style="font-size: 11px; color: #A78BFA;">agent1q2e5etz55k3nkx0xhx7phzadk2j5973zstm78esx4x4eggskknpaq9hjcw6</code></td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; font-weight: 600; color: #8B5CF6;">ASIOneGatewayAgent</td>
+                <td style="padding: 12px;"><code>agent_asi_one.py</code></td>
+                <td style="padding: 12px;">Agent Chat Protocol (ACP) gateway. Discovered on ASI:One (asi1.ai) and Agentverse, transforming natural language conversation into cyber-physical action.</td>
+                <td style="padding: 12px;"><code style="font-size: 11px; color: #A78BFA;">agent1q2z38r8leq4qhmqmqklcekjljmjhkw5udrf4yn6n7w6k8hn2qr5eumag6ft</code></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

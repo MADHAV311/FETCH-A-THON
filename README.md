@@ -1,4 +1,13 @@
-# TrafficFlow-AI: Smart City Adaptive Traffic Signal Digital Twin
+# TrafficFlow-AI: Smart City Adaptive Traffic Signal Digital Twin & Multi-Agent Swarm
+![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3)
+![Framework: Fetch.ai uAgents](https://img.shields.io/badge/Framework-Fetch.ai_uAgents-00D26A?logo=fetch.ai)
+![Protocol: Agent Chat Protocol (ACP)](https://img.shields.io/badge/Protocol-Agent_Chat_Protocol_(ACP)-7952DE)
+![Platform: ASI:One & Agentverse](https://img.shields.io/badge/Platform-ASI%3AOne_%26_Agentverse-FF6B6B)
+![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-blue)
+
+> 🏆 **Built for FETCH-A-THON 3.0 & ASI:ONE AGENT CHALLENGE** | Presidency University, Bengaluru  
+> *Organized by Fetch.ai, Innovation Lab by Fetch.ai, ASI:ONE (Artificial Superintelligence Alliance), and Masters' Union*  
+> **Team ID:** `FETCHATHON3.0-8799` | **Team Lead:** BANDILA MADHAV | **Members:** LAKSHMI REDDY M S, KEERTHIPATI SATHYASREE, KHAMITHKAR SUPRITHA
 ### Problem Statement 1: AI Traffic Management, 108 CAD Emergency Response, Directional Pole Sirens, VRU Crosswalk Scramble, & Arterial Green Wave Corridor
 
 ---
@@ -34,6 +43,69 @@ The project directly solves critical urban challenges:
 
 ---
 
+## 🤖 Fetch.ai Decentralized Multi-Agent Swarm (MAS) Architecture
+
+Rather than a static script, **TrafficFlow-AI** is powered by a decentralized swarm of **5 autonomous AI agents** engineered with Fetch.ai's `uagents` framework. Each agent possesses an independent cryptographic identity, event loops, and typed Agent-to-Agent (A2A) protocol interfaces:
+
+```
+                                ┌────────────────────────────────────────────────────────┐
+                                │                 ASI:One / DeltaV Chat                  │
+                                │  "What's traffic at Central Junction? Clear route 108" │
+                                └───────────────────────────┬────────────────────────────┘
+                                                            │ (Agent Chat Protocol - ACP)
+                                                            ▼
+                                                ┌───────────────────────┐
+                                                │   ASI:One Gateway     │
+                                                │        Agent          │
+                                                │  (Agentverse Mailbox) │
+                                                └───────────┬───────────┘
+                                                            │
+         ┌──────────────────────────────────────────────────┼──────────────────────────────────────────────────┐
+         ▼                                                  ▼                                                  ▼
+ ┌───────────────────────────┐                    ┌───────────────────────────┐                    ┌───────────────────────────┐
+ │     Junction Agent        │ ◄───(A2A Protocol)─┤   Emergency Fleet Agent   │                    │     Triage CAD Agent      │
+ │    (Central Main Node)    │                    │    (108 ALS Ambulance)    │                    │     (City Trauma CAD)     │
+ │ - Controls signal phases  │                    │ - Broadcasts ETA & road   │                    │ - Multi-sensor AI triage  │
+ │ - Directional pole sirens │                    │ - Requests Green Carpet   │                    │ - Suppresses minor scrapes│
+ │ - Negotiates green wave   │                    │ - Clears after passing    │                    │ - Dispatches critical 108 │
+ └─────────────┬─────────────┘                    └───────────────────────────┘                    └─────────────┬─────────────┘
+               │                                                                                                 │
+               │                                  ┌───────────────────────────┐                                  │
+               │                                  │   Pedestrian VRU Agent    │                                  │
+               └──────────────(A2A Protocol)─────►│   (Barnes Dance Scramble) │◄─────────────────────────────────┘
+                                                  │ - Aggregates pushbuttons  │
+                                                  │ - School zone crowd surge │
+                                                  └───────────────────────────┘
+```
+
+### The 5 Autonomous Swarm Agents:
+
+| Agent Name | Module | Role & Autonomous Action | Cryptographic Address |
+| :--- | :--- | :--- | :--- |
+| **1. JunctionControllerAgent** | `agent_junction.py` | Central intersection manager. Evaluates queue indices, activates directional high-mast sirens (Poles A–D), grants green waves, and arbitrates conflicts. | `agent1qv64chlcf8cuqfwl26mg6l8lp97ng8xvg88jsfkz903xetc6mxaq7zm8exa` |
+| **2. EmergencyFleetAgent** | `agent_ambulance.py` | Mobile agent representing 108 ALS Ambulances. Negotiates preemption priority and stopline ETA via authenticated `EmergencyPassageRequest`. | `agent1qgs49qusgm4lylwpvf3pmkmlvhqsecvd6yelhwd3nvf8st5z8hy4c267naz` |
+| **3. TriageCADAgent** | `agent_triage.py` | Sub-second crash triage. Dispatches 108 CAD to Trauma Centers for severe 6.8G crashes; **strictly suppresses calls for 1.3G scrapes** to protect hospital bandwidth. | `agent1qt6ra3rkwu0fx95ca56hrj0akft3xwfm63yx8rt5tmkc6uzmhydxu8pgww5` |
+| **4. PedestrianVRUAgent** | `agent_pedestrian.py` | Campus student and pedestrian safety agent. Aggregates curb pushbuttons and trailing inflow, commanding Barnes Dance all-pedestrian scrambles. | `agent1q2e5etz55k3nkx0xhx7phzadk2j5973zstm78esx4x4eggskknpaq9hjcw6` |
+| **5. ASIOneGatewayAgent** | `agent_asi_one.py` | Public-facing agent implementing the **Agent Chat Protocol (ACP)**. Discoverable on **ASI:One (`asi1.ai`)** & **Agentverse**, transforming natural language intent into cyber-physical action. | `agent1q2z38r8leq4qhmqmqklcekjljmjhkw5udrf4yn6n7w6k8hn2qr5eumag6ft` |
+
+---
+
+## 💬 ASI:One Agent Challenge — From Intent to Action (ACP Integration)
+
+The project directly fulfills all mandatory requirements of the **ASI:One Agent Challenge**:
+
+* ✅ **Agentverse Registered:** Pre-configured with a hosted script (`backend/agents/agentverse_hosted_agent.py`) deployable in 60 seconds on [Agentverse](https://agentverse.ai).
+* ✅ **Agent Chat Protocol (ACP):** Implements `uagents_core.contrib.protocols.chat` with `ChatMessage`, `ChatAcknowledgement`, and `TextContent`.
+* ✅ **Discoverable via ASI:One:** Queryable through natural language on [asi1.ai](https://asi1.ai) from any desktop or mobile browser.
+* ✅ **Intent-to-Action Execution:** Complete workflows execute natively within the chat stream without requiring a custom frontend:
+  * *"Clear 108 Ambulance corridor on North road"* $\rightarrow$ Executes Pole A siren and green carpet preemption.
+  * *"Report critical 6.8G crash on South road"* $\rightarrow$ Executes 108 CAD trauma dispatch with exact GPS coordinates.
+  * *"Report 1.3G minor scrape"* $\rightarrow$ Executes emergency bandwidth triage suppression.
+  * *"Activate pedestrian scramble for campus students"* $\rightarrow$ Executes Barnes Dance all-red walk window.
+  * *"What is the traffic situation?"* $\rightarrow$ Returns real-time delay reduction (-41.4%) and savings in ₹ Lakhs/Year.
+
+---
+
 ## 🏛️ Clean Full-Stack Architecture
 
 The system features an enterprise-grade decoupled architecture separating presentation from the physics and decision engines:
@@ -43,9 +115,20 @@ PS1/
 ├── run.py                           # Unified launcher with visual CLI banner
 ├── server.py                        # Root backward-compatible server entrypoint
 ├── backend/                         # Backend Service Layer (Python)
+│   ├── agents/                      # Fetch.ai Decentralized Multi-Agent Swarm (MAS)
+│   │   ├── __init__.py
+│   │   ├── models.py                # Typed Pydantic A2A message schemas (uagents.Model)
+│   │   ├── agent_junction.py        # Central Junction Traffic Controller Agent
+│   │   ├── agent_ambulance.py       # 108 ALS Emergency Fleet Mobile Agent
+│   │   ├── agent_triage.py          # Sub-second Collision Triage & 108 CAD Agent
+│   │   ├── agent_pedestrian.py      # Campus Student & VRU Barnes Dance Scramble Agent
+│   │   ├── agent_asi_one.py         # Public ASI:One Agent Chat Protocol (ACP) Gateway Agent
+│   │   ├── bureau_runner.py         # Multi-Agent Swarm Bureau Runner (Port 8000)
+│   │   └── agentverse_hosted_agent.py # Self-contained Agentverse Hosted Agent (60s deploy)
 │   ├── server.py                    # Threading HTTP server & 30Hz simulation loop
-│   ├── test_fullstack.py            # Automated 14-suite verification test suite
-│   ├── requirements.txt             # 0 external dependencies (Standard Library only)
+│   ├── test_fullstack.py            # Automated 14-suite simulation test suite
+│   ├── test_agents.py               # Automated Fetch.ai multi-agent verification suite
+│   ├── requirements.txt             # Python dependencies (uagents)
 │   ├── engine/
 │   │   ├── config.py                # Geometry, IDM physics, vehicle specs, Indian economics
 │   │   ├── vehicle.py               # IDM car-following kinematics & dilemma zone physics
