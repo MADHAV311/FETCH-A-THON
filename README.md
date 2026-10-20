@@ -175,25 +175,6 @@ python backend/test_fullstack.py
 
 ---
 
-## 🔬 Algorithmic & Mathematical Grounding
-
-### 1. Intelligent Driver Model (IDM) Kinematics
-Every vehicle follows nonlinear car-following physics:
-$$a_{\text{IDM}} = a_{\max} \left[ 1 - \left( \frac{v}{v_0} \right)^\delta - \left( \frac{s^*(v, \Delta v)}{s} \right)^2 \right]$$
-$$s^*(v, \Delta v) = s_0 + v \cdot T + \frac{v \cdot \Delta v}{2 \sqrt{a_{\max} b}}$$
-
-### 2. Multi-Factor AI Priority Index
-$$\text{Priority}(R) = w_q \cdot Q_R + w_w \cdot W_{\max, R} + w_{\text{tot}} \cdot \left(\frac{W_{\text{total}, R}}{8}\right) + w_\lambda \cdot \lambda_R + S_{\text{boost}}(R)$$
-With exponential starvation prevention:
-$$S_{\text{boost}}(R) = \left( \frac{t_{\text{unserved}}}{25} \right)^{2.2} \times 15.0 \times w_{\text{starve}}$$
-
-### 3. Sub-Second Accident Severity Index (ASI)
-$$\text{ASI} = 0.40 \cdot \left(\frac{v_{\text{impact}}}{60}\right) + 0.35 \cdot \left(\frac{G_{\text{force}}}{8.0}\right) + 0.15 \cdot \mathbb{I}_{\text{airbag}} + 0.10 \cdot \mathbb{I}_{\text{intrusion}}$$
-* If $\text{ASI} \ge 0.50 \rightarrow$ **CRITICAL**: Immediate 108 CAD dispatch + GPS transmission + upstream lockdown.
-* If $\text{ASI} < 0.50 \rightarrow$ **MINOR**: Call suppressed to protect 108 emergency bandwidth; digital telemetry logged.
-
----
-
 ## 🏆 Presentation Highlights for the Jury
 1. **Zero External Dependencies:** Built with pure Python and vanilla ES6 JavaScript/HTML5 Canvas — instant setup on any machine.
 2. **True Smart City Context:** High-density metropolitan arterial corridor with university/college educational zone and multi-specialty trauma hospital.
