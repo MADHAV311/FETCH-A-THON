@@ -1,0 +1,13 @@
+# AI Adaptive Traffic Signal Digital Twin
+# Full-Stack Autonomous Smart City & CAD Emergency Triage Platform
+# Built entirely with standard library Python (zero external dependencies required)
+# Python >= 3.8
+
+# Standard Library Modules Utilized:
+# - http.server (ThreadingHTTPServer)
+# - threading
+# - json
+# - math
+# - time
+# - urllib.parse
+# - os, sys

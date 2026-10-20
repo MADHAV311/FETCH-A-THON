@@ -1,0 +1,161 @@
+/* ==========================================================================
+   AI Adaptive Traffic Signal Digital Twin - Simulation Viewport CSS
+   ========================================================================== */
+
+.viewport-canvas-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #090c15;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Compass Rose on Canvas */
+.compass-rose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(14, 19, 31, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.compass-rose::before {
+  content: 'N';
+  position: absolute;
+  top: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--rose-red);
+}
+
+.compass-needle {
+  width: 2px;
+  height: 26px;
+  background: linear-gradient(to bottom, var(--rose-red) 50%, rgba(255, 255, 255, 0.3) 50%);
+  border-radius: 1px;
+}
+
+/* Floating Viewport Quick Controls (Zoom, Pan, Layer Toggles) */
+.viewport-floating-toolbar {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(14, 19, 31, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 4px 6px;
+  z-index: 20;
+}
+
+.viewport-floating-toolbar button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.viewport-floating-toolbar button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+/* Canvas Tooltip for Vehicle & Light Hover */
+.sim-tooltip {
+  position: absolute;
+  display: none;
+  background: rgba(12, 17, 28, 0.95);
+  border: 1px solid var(--cyan-primary);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-main);
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  transform: translate(12px, 12px);
+}
+
+/* Legend Overlay */
+.simulation-legend {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(14, 19, 31, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+/* Emergency Vehicle Alert Banner */
+.emergency-alert-banner {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(220, 38, 38, 0.9);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  z-index: 45;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.7);
+  animation: pulseGlow 1s infinite alternate;
+}
+
+/* Rush Hour Phase Pill */
+.rush-hour-indicator {
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  z-index: 20;
+}
