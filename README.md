@@ -1,7 +1,4 @@
 # TrafficFlow-AI: Smart City Adaptive Traffic Signal Digital Twin
-> 🏆 **Built for FETCH-A-THON 3.0** | Presidency University, Bengaluru  
-> *Organized by Fetch.ai, ASI:ONE, and Masters' Union*
-
 ### Problem Statement 1: AI Traffic Management, 108 CAD Emergency Response, Directional Pole Sirens, VRU Crosswalk Scramble, & Arterial Green Wave Corridor
 
 ---
