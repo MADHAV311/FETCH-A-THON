@@ -25,3 +25,6 @@ venv/
 # Private keys
 private_keys.json
 *.key
+
+# Local documents
+*.pdf
