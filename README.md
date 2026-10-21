@@ -86,7 +86,7 @@ Rather than a static script, **TrafficFlow-AI** is powered by a decentralized sw
 | **2. EmergencyFleetAgent** | `agent_ambulance.py` | Mobile agent representing 108 ALS Ambulances. Negotiates preemption priority and stopline ETA via authenticated `EmergencyPassageRequest`. | `agent1qgs49qusgm4lylwpvf3pmkmlvhqsecvd6yelhwd3nvf8st5z8hy4c267naz` |
 | **3. TriageCADAgent** | `agent_triage.py` | Sub-second crash triage. Dispatches 108 CAD to Trauma Centers for severe 6.8G crashes; **strictly suppresses calls for 1.3G scrapes** to protect hospital bandwidth. | `agent1qt6ra3rkwu0fx95ca56hrj0akft3xwfm63yx8rt5tmkc6uzmhydxu8pgww5` |
 | **4. PedestrianVRUAgent** | `agent_pedestrian.py` | Campus student and pedestrian safety agent. Aggregates curb pushbuttons and trailing inflow, commanding Barnes Dance all-pedestrian scrambles. | `agent1q2e5etz55k3nkx0xhx7phzadk2j5973zstm78esx4x4eggskknpaq9hjcw6` |
-| **5. ASIOneGatewayAgent** | `agent_asi_one.py` | Public-facing agent implementing the **Agent Chat Protocol (ACP)**. Discoverable on **ASI:One (`asi1.ai`)** & **Agentverse**, transforming natural language intent into cyber-physical action. | `agent1q2z38r8leq4qhmqmqklcekjljmjhkw5udrf4yn6n7w6k8hn2qr5eumag6ft` |
+| **5. ASIOneGatewayAgent (Live Hosted)** | gent_asi_one.py / Agentverse | Public-facing agent implementing the **Agent Chat Protocol (ACP)**. Discoverable on **ASI:One (si1.ai)** & **Agentverse**, transforming natural language intent into cyber-physical action. | gent1qwmawnyywfmhxgtyfl6uut9gkv4s36q4ykw220trle6053c4k8nrzvp98t4 |
 
 ---
 
