@@ -255,6 +255,18 @@ To execute the automated 14-suite end-to-end verification test:
 python backend/test_fullstack.py
 ```
 
+### Running Automated Fetch.ai Multi-Agent Swarm Tests
+To verify all 5 decentralized agents, sub-second crash triage, and ACP intent-to-action workflows:
+```bash
+python backend/test_agents.py
+```
+
+### Interactive CLI Agent Chat (ACP Terminal Simulator)
+To chat directly with the multi-agent swarm from your command line:
+```bash
+python backend/cli_chat.py
+```
+
 ---
 
 ## 🔌 Complete REST API Reference
