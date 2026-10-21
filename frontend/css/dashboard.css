@@ -1856,3 +1856,53 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
+
+
+/* ====================================================================
+   FETCH.AI SWARM TABULAR UI
+   ==================================================================== */
+.swarm-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.swarm-table th {
+  background: rgba(10, 15, 30, 0.7) !important;
+  color: #94A3B8 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.swarm-table tr:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.swarm-copy-btn {
+  transition: all 0.15s ease;
+}
+
+.swarm-copy-btn:hover {
+  background: rgba(168, 85, 247, 0.3) !important;
+  border-color: #A855F7 !important;
+  color: #fff !important;
+}
+
+.swarm-copy-btn.copied {
+  background: rgba(16, 185, 129, 0.3) !important;
+  border-color: #10B981 !important;
+  color: #34D399 !important;
+}
+
+.acp-preset-btn {
+  transition: all 0.15s ease;
+}
+
+.acp-preset-btn:hover {
+  filter: brightness(1.25);
+  transform: translateY(-1px);
+}
