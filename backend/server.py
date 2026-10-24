@@ -100,11 +100,14 @@ class FullStackTrafficHandler(SimpleHTTPRequestHandler):
             elif path == "/api/export/csv":
                 with state_lock:
                     res = handle_export_csv(twin_manager)
+                body_bytes = res["body"].encode("utf-8")
                 self.send_response(200)
                 self.send_header("Content-Type", res["content_type"])
+                self.send_header("Content-Length", str(len(body_bytes)))
                 self.send_header("Content-Disposition", 'attachment; filename="traffic_telemetry.csv"')
                 self.end_headers()
-                self.wfile.write(res["body"].encode("utf-8"))
+                self.wfile.write(body_bytes)
+                self.wfile.flush()
                 return
 
             elif path == "/api/experiment/report":

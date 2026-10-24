@@ -22,9 +22,15 @@ Thumbs.db
 env/
 venv/
 
-# Private keys
+# Binaries & Executables
+*.exe
+cloudflared.exe
+*.zip
+
+# Private keys & temp registration
 private_keys.json
 *.key
+do_register.py
 
 # Local documents
 *.pdf

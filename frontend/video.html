@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrafficFlow-AI : Autonomous Video Walkthrough & Presentation</title>
+  <style>
+    :root {
+      --bg-dark: #0a0e17;
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    .video-container {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at 50% 20%, #172554, #030712 80%);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(6, 182, 212, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Bar */
+    .video-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(10, 14, 23, 0.7);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-tag {
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      color: #000;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-weight: 800;
+    }
+
+    .meta-badges {
+      display: flex;
+      gap: 10px;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Scene Stage */
+    .stage {
+      flex: 1;
+      position: relative;
+      display: flex;
+      padding: 36px 48px;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 36px 48px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.98);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .scene.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Slide Content Typography */
+    .scene-category {
+      color: var(--accent-cyan);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scene-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      background: linear-gradient(to right, #ffffff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .scene-desc {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 850px;
+      margin-bottom: 24px;
+    }
+
+    /* Cards Grid Inside Scenes */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+    }
+
+    .feature-card.highlight {
+      border-color: rgba(6, 182, 212, 0.4);
+      background: linear-gradient(145deg, rgba(6, 182, 212, 0.08), rgba(18, 24, 38, 0.9));
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .card-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .code-pill {
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #38bdf8;
+      font-size: 0.8rem;
+    }
+
+    /* Metrics Callout */
+    .metrics-row {
+      display: flex;
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .metric-box {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 14px 18px;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent-emerald);
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Subtitles Bar */
+    .subtitles-bar {
+      padding: 14px 24px;
+      background: rgba(3, 7, 18, 0.85);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 1rem;
+      color: #e2e8f0;
+      text-align: center;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    /* Bottom Control Bar */
+    .video-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: rgba(10, 14, 23, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 10;
+    }
+
+    .btn-play {
+      background: linear-gradient(135deg, #06b6d4, #2563eb);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn-play:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+    }
+
+    .control-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-icon {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    .btn-icon:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .timeline-container {
+      flex: 1;
+      margin: 0 24px;
+      position: relative;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, #06b6d4, #8b5cf6);
+      transition: width 0.3s linear;
+    }
+
+    .scene-indicators {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+
+    .scene-dot {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .scene-dot.active {
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    /* Screen recording banner */
+    .record-tip {
+      margin-top: 18px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    kbd {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.8rem;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="video-container" id="videoBox">
+    <!-- Top Header Bar -->
+    <div class="video-header">
+      <div class="brand">
+        <span>🚦 TrafficFlow-AI</span>
+        <span class="brand-tag">FETCH-A-THON 3.0</span>
+      </div>
+      <div class="meta-badges">
+        <span class="badge">Fetch.ai uAgents</span>
+        <span class="badge">Agentverse Almanac</span>
+        <span class="badge">ASI:One ACP v0.3.0</span>
+        <span class="badge">0.05 FET Payment</span>
+      </div>
+    </div>
+
+    <!-- Main Stage: Animated Scenes -->
+    <div class="stage">
+      
+      <!-- SCENE 1: The Problem & Hook -->
+      <div class="scene active" id="scene-0">
+        <div class="scene-category">🚨 01 / Urban Traffic Crisis</div>
+        <h1 class="scene-title">The ₹1.47 Lakh Crore Gridlock Problem</h1>
+        <p class="scene-desc">
+          Indian metropolitan commuters waste billions of hours idling in severe traffic jams, while 108 emergency ambulances lose critical minutes during the Golden Hour. Conventional apps like Google Maps are purely <strong>reactive</strong>—they only show red lines after you are already trapped.
+        </p>
+        <div class="cards-grid">
+          <div class="feature-card highlight">
+            <div class="card-header"><span>📉</span> ₹1.47 Lakh Cr Annual Loss</div>
+            <div class="card-body">Wasted petrol, carbon emissions, and lost economic productivity across Indian metros.</div>
+          </div>
+          <div class="feature-card">
+            <div class="card-header"><span>🚑</span> Golden Hour Delays</div>
+            <div class="card-body">Trauma survival drops 10% for every minute an ambulance is stuck at congested signals.</div>
+          </div>
+          <div class="feature-card">
+            <div class="card-header"><span>💡</span> The Solution</div>
+            <div class="card-body">A decentralized, cyber-physical multi-agent swarm that negotiates corridor right-of-way <strong>350m in advance</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 2: The Multi-Agent Swarm -->
+      <div class="scene" id="scene-1">
+        <div class="scene-category">🤖 02 / Decentralized Swarm Architecture</div>
+        <h1 class="scene-title">6 Autonomous Fetch.ai uAgents</h1>
+        <p class="scene-desc">
+          Governed by typed Agent-to-Agent (A2A) Pydantic protocols on the Fetch.ai event loop. Each agent holds a registered Bech32 cryptographic address.
+        </p>
+        <div class="cards-grid">
+          <div class="feature-card">
+            <div class="card-header"><span>🚦</span> JunctionHub</div>
+            <div class="card-body">Computes Webster saturation headway and manages 4-phase adaptive splits.<br><span class="code-pill">agent1qv64chlc...</span></div>
+          </div>
+          <div class="feature-card">
+            <div class="card-header"><span>🚙</span> CommuterVehicle</div>
+            <div class="card-body">Queries signals 350m ahead and takes the 8th Cross Green Wave Bypass.<br><span class="code-pill">agent1qvw4f2k...</span></div>
+          </div>
+          <div class="feature-card">
+            <div class="card-header"><span>🚑</span> 108Ambulance</div>
+            <div class="card-body">Commands 115dB Pole sirens & uninterrupted Green Carpet wave.<br><span class="code-pill">agent1qgs49qu...</span></div>
+          </div>
+          <div class="feature-card">
+            <div class="card-header"><span>💥</span> AccidentTriage</div>
+            <div class="card-body">Sub-second crash severity triage: 6.8G auto-dispatch vs 1.3G call suppression.<br><span class="code-pill">agent1qt6ra3r...</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 3: Cyber-Physical Innovations -->
+      <div class="scene" id="scene-2">
+        <div class="scene-category">⚡ 03 / Cyber-Physical Hardware & Safety</div>
+        <h1 class="scene-title">Directional Sirens, Triage & Pedestrian Scramble</h1>
+        <p class="scene-desc">
+          We bring AI out of the cloud into real-world intersection hardware with dilemma-zone safety buffers and vulnerable road user protection.
+        </p>
+        <div class="cards-grid">
+          <div class="feature-card highlight">
+            <div class="card-header"><span>🚨</span> Pole A 115dB Acoustic Horn</div>
+            <div class="card-body">Directional audio beam & strobe beacons clear queues ahead of ambulances outside the dilemma zone.</div>
+          </div>
+          <div class="feature-card highlight">
+            <div class="card-header"><span>🛡️</span> Crash Severity Triage</div>
+            <div class="card-body">6.8G impact auto-dispatches 108 CAD to trauma centers; 1.3G minor scrape is suppressed to protect hospital bandwidth.</div>
+          </div>
+          <div class="feature-card highlight">
+            <div class="card-header"><span>🚶</span> Barnes Dance Pedestrian Scramble</div>
+            <div class="card-body">All 4 vehicle approaches lock on solid RED during campus student surges, allowing safe diagonal crossing.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 4: ASI:One & Agentverse Integration -->
+      <div class="scene" id="scene-3">
+        <div class="scene-category">🌐 04 / Agentverse, ACP & Payment Protocol</div>
+        <h1 class="scene-title">Live on ASI:One with 0.05 FET Monetization</h1>
+        <p class="scene-desc">
+          Registered and active on the Fetch.ai Almanac with the Agent Chat Protocol (ACP v0.3.0) and autonomous micro-settlement.
+        </p>
+        <div class="cards-grid">
+          <div class="feature-card">
+            <div class="card-header"><span>📍</span> Pinpoint Location Intelligence</div>
+            <div class="card-body">User asks: <em>"Traffic at Silk Board?"</em><br>Agent pinpoints: 650m backlog, Bus Terminus epicenter, affected lanes, and GPS span!</div>
+          </div>
+          <div class="feature-card highlight">
+            <div class="card-header"><span>💳</span> Fetch.ai Payment Protocol</div>
+            <div class="card-body">Implements <code>uagents_core.contrib.protocols.payment</code>. Commuter pays <strong>0.05 FET</strong> micro-toll for guaranteed green wave progression.</div>
+          </div>
+          <div class="feature-card">
+            <div class="card-header"><span>🌍</span> Agentverse Almanac</div>
+            <div class="card-body">Cryptographically signed identity published and active for chat discovery across the ASI:One ecosystem.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 5: Verified MoRTH Indian Economic ROI -->
+      <div class="scene" id="scene-4">
+        <div class="scene-category">🇮🇳 05 / Real-World Indian Impact</div>
+        <h1 class="scene-title">Verified MoRTH Economic & Climate ROI</h1>
+        <p class="scene-desc">
+          Calibrated against official Ministry of Road Transport and Highways (MoRTH) standards, yielding direct commuter savings every single trip.
+        </p>
+        <div class="metrics-row">
+          <div class="metric-box">
+            <div class="metric-value">6 - 12m</div>
+            <div class="metric-label">Travel Time Saved</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-value">0.42 - 0.85 L</div>
+            <div class="metric-label">Fuel Saved / Trip</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-value">₹58 - ₹118</div>
+            <div class="metric-label">INR Commuter ROI</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-value">1.5 - 2.0 kg</div>
+            <div class="metric-label">CO₂ Abated / Trip</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live Subtitles -->
+    <div class="subtitles-bar" id="subtitles">
+      Click "Play Video Presentation" below to begin the automated walkthrough.
+    </div>
+
+    <!-- Bottom Controls Bar -->
+    <div class="video-controls">
+      <button class="btn-play" id="playBtn" onclick="togglePlay()">
+        <span id="playIcon">▶</span> <span id="playText">Play Presentation</span>
+      </button>
+
+      <div class="timeline-container">
+        <div class="progress-bar-bg" onclick="seekTimeline(event)">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="scene-indicators">
+          <span class="scene-dot active" onclick="jumpToScene(0)">1. Problem</span>
+          <span class="scene-dot" onclick="jumpToScene(1)">2. Swarm</span>
+          <span class="scene-dot" onclick="jumpToScene(2)">3. Cyber-Physical</span>
+          <span class="scene-dot" onclick="jumpToScene(3)">4. ASI:One & FET</span>
+          <span class="scene-dot" onclick="jumpToScene(4)">5. MoRTH Impact</span>
+        </div>
+      </div>
+
+      <div class="control-actions">
+        <button class="btn-icon" onclick="prevScene()">⏮ Prev</button>
+        <button class="btn-icon" onclick="nextScene()">Next ⏭</button>
+        <button class="btn-icon" id="voiceToggle" onclick="toggleVoice()">🔊 Voice: ON</button>
+        <button class="btn-icon" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="record-tip">
+    <span>💡 <strong>Quick Video Recording Tip:</strong> Press <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>R</kbd> (or open Xbox Game Bar / Loom) to record this presentation into an MP4 video with full audio!</span>
+  </div>
+
+  <script>
+    const scenes = [
+      {
+        id: 0,
+        name: "Urban Crisis",
+        narration: "Indian commuters lose 1.47 lakh crore rupees every year trapped in urban gridlock, while emergency ambulances lose vital minutes during the golden hour. Conventional apps like Google Maps are purely reactive. We built TrafficFlow-AI: a decentralized cyber-physical agent swarm that prevents traffic bottlenecks 350 meters in advance using Fetch.ai and ASI:One.",
+        duration: 16000
+      },
+      {
+        id: 1,
+        name: "Multi-Agent Swarm",
+        narration: "Our architecture deploys six autonomous Fetch.ai uAgents communicating over typed agent-to-agent protocols: JunctionHub for Webster adaptive timing, CommuterVehicle for proactive in-car rerouting, 108Ambulance for priority passage, AccidentTriage for crash classification, PedestrianVRU for student safety, and ASIOneGateway for chat interaction.",
+        duration: 19000
+      },
+      {
+        id: 2,
+        name: "Cyber-Physical Innovations",
+        narration: "TrafficFlow-AI bridges software to physical hardware. Pole A features a 115-decibel directional acoustic horn and LED strobes to clear queues ahead of ambulances outside the dilemma zone. Our AI accident triage auto-dispatches trauma centers for severe 6.8G crashes, but strictly suppresses calls for minor scrapes. During campus crowd surges, a Barnes Dance all-red scramble protects students.",
+        duration: 21000
+      },
+      {
+        id: 3,
+        name: "ASI:One & FET Payment",
+        narration: "On ASI:One, users converse directly with our agent using the Agent Chat Protocol. Asking about Silk Board reveals an exact 650-meter backlog and landmark epicenter. Furthermore, using Fetch.ai's official payment protocol, commuter agents execute 0.05 FET micro-settlements for guaranteed green-wave priority slots through three synchronized intersections.",
+        duration: 20000
+      },
+      {
+        id: 4,
+        name: "MoRTH Impact & Conclusion",
+        narration: "Every calculation is grounded in official Ministry of Road Transport and Highways benchmarks. By avoiding idle queue stoppage, commuters save 6 to 12 minutes, 0.42 to 0.85 liters of fuel, and up to 118 rupees per trip, while abating up to 2 kilograms of CO2. TrafficFlow-AI proves how Fetch.ai uAgents revolutionize real-world smart cities. Thank you!",
+        duration: 21000
+      }
+    ];
+
+    let currentSceneIdx = 0;
+    let isPlaying = false;
+    let voiceEnabled = true;
+    let sceneTimer = null;
+    let progressTimer = null;
+    let sceneStartTime = 0;
+    let synth = window.speechSynthesis;
+
+    function jumpToScene(idx) {
+      if (idx < 0 || idx >= scenes.length) return;
+      currentSceneIdx = idx;
+
+      // Update Scene DOM
+      document.querySelectorAll('.scene').forEach((sc, i) => {
+        sc.classList.toggle('active', i === idx);
+      });
+
+      // Update Dots
+      document.querySelectorAll('.scene-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === idx);
+      });
+
+      // Update Subtitles
+      const current = scenes[idx];
+      document.getElementById('subtitles').innerText = `🎙️ "${current.narration}"`;
+
+      // Speak narration
+      if (voiceEnabled && synth) {
+        synth.cancel();
+        const utter = new SpeechSynthesisUtterance(current.narration);
+        utter.rate = 1.0;
+        utter.pitch = 1.0;
+        synth.speak(utter);
+      }
+
+      if (isPlaying) {
+        scheduleNextScene();
+      }
+    }
+
+    function scheduleNextScene() {
+      clearTimeout(sceneTimer);
+      clearInterval(progressTimer);
+
+      const duration = scenes[currentSceneIdx].duration;
+      sceneStartTime = Date.now();
+
+      progressTimer = setInterval(() => {
+        if (!isPlaying) return;
+        const elapsed = Date.now() - sceneStartTime;
+        const pct = Math.min(100, (elapsed / duration) * 100);
+        const totalPct = ((currentSceneIdx + pct / 100) / scenes.length) * 100;
+        document.getElementById('progressFill').style.width = `${totalPct}%`;
+      }, 50);
+
+      sceneTimer = setTimeout(() => {
+        if (currentSceneIdx < scenes.length - 1) {
+          jumpToScene(currentSceneIdx + 1);
+        } else {
+          pauseVideo();
+          document.getElementById('progressFill').style.width = '100%';
+          document.getElementById('subtitles').innerText = "🏁 Presentation Complete! Ready for Submission & Judging.";
+        }
+      }, duration);
+    }
+
+    function togglePlay() {
+      if (isPlaying) {
+        pauseVideo();
+      } else {
+        playVideo();
+      }
+    }
+
+    function playVideo() {
+      isPlaying = true;
+      document.getElementById('playIcon').innerText = "⏸";
+      document.getElementById('playText').innerText = "Pause";
+      jumpToScene(currentSceneIdx);
+    }
+
+    function pauseVideo() {
+      isPlaying = false;
+      document.getElementById('playIcon').innerText = "▶";
+      document.getElementById('playText').innerText = "Play";
+      clearTimeout(sceneTimer);
+      clearInterval(progressTimer);
+      if (synth) synth.cancel();
+    }
+
+    function nextScene() {
+      if (currentSceneIdx < scenes.length - 1) {
+        jumpToScene(currentSceneIdx + 1);
+      }
+    }
+
+    function prevScene() {
+      if (currentSceneIdx > 0) {
+        jumpToScene(currentSceneIdx - 1);
+      }
+    }
+
+    function toggleVoice() {
+      voiceEnabled = !voiceEnabled;
+      document.getElementById('voiceToggle').innerText = voiceEnabled ? "🔊 Voice: ON" : "🔇 Voice: OFF";
+      if (!voiceEnabled && synth) {
+        synth.cancel();
+      }
+    }
+
+    function toggleFullscreen() {
+      const box = document.getElementById('videoBox');
+      if (!document.fullscreenElement) {
+        box.requestFullscreen().catch(err => alert("Fullscreen error: " + err.message));
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    function seekTimeline(e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const pct = clickX / rect.width;
+      const targetScene = Math.min(scenes.length - 1, Math.floor(pct * scenes.length));
+      jumpToScene(targetScene);
+    }
+  </script>
+</body>
+</html>

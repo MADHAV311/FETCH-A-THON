@@ -7,6 +7,11 @@ and exposes REST APIs + serves static frontend assets.
 import sys
 import os
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 # Ensure parent directory is in sys.path
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.dirname(CURRENT_DIR)
@@ -22,6 +27,7 @@ import urllib.parse
 
 from backend.engine.twin_manager import TwinManager
 from backend.engine.experiment_engine import ExperimentEngine
+from backend.agents.agent_asi_one import process_user_intent
 from backend.api.handlers import (
     handle_get_state,
     handle_control,
@@ -97,14 +103,31 @@ class FullStackTrafficHandler(SimpleHTTPRequestHandler):
                 self._send_response_dict(res)
                 return
 
+            elif path in ["/api/acp/chat", "/api/chat", "/chat", "/submit", "/webhook", "/endpoint"]:
+                self._send_response_dict({
+                    "status": 200,
+                    "content_type": "application/json",
+                    "body": json.dumps({
+                        "status": "ok",
+                        "agent": "TrafficFlow-AI",
+                        "framework": "uAgents",
+                        "protocol": "ACP v0.3.0",
+                        "agentAddress": "agent1qwmawnyywfmhxgtyfl6uut9gkv4s36q4ykw220trle6053c4k8nrzvp98t4"
+                    })
+                })
+                return
+
             elif path == "/api/export/csv":
                 with state_lock:
                     res = handle_export_csv(twin_manager)
+                body_bytes = res["body"].encode("utf-8")
                 self.send_response(200)
                 self.send_header("Content-Type", res["content_type"])
+                self.send_header("Content-Length", str(len(body_bytes)))
                 self.send_header("Content-Disposition", 'attachment; filename="traffic_telemetry.csv"')
                 self.end_headers()
-                self.wfile.write(res["body"].encode("utf-8"))
+                self.wfile.write(body_bytes)
+                self.wfile.flush()
                 return
 
             elif path == "/api/experiment/report":
@@ -177,6 +200,32 @@ class FullStackTrafficHandler(SimpleHTTPRequestHandler):
                     res = handle_school_trigger(twin_manager, payload)
                 elif path == "/api/experiment/run":
                     res = handle_experiment_run(experiment_engine, payload)
+                elif path in ["/api/acp/chat", "/api/chat", "/chat", "/submit", "/webhook", "/endpoint"]:
+                    query_text = payload.get("message") or payload.get("query") or payload.get("text") or payload.get("prompt") or ""
+                    if isinstance(query_text, dict):
+                        query_text = query_text.get("text", "")
+                    if not query_text and "content" in payload:
+                        if isinstance(payload["content"], list):
+                            query_text = "".join(c.get("text", "") for c in payload["content"] if isinstance(c, dict))
+                        elif isinstance(payload["content"], str):
+                            query_text = payload["content"]
+                    if not query_text:
+                        query_text = "What is the traffic situation at Central Junction?"
+
+                    reply = process_user_intent(query_text)
+                    res = {
+                        "status": 200,
+                        "content_type": "application/json",
+                        "body": json.dumps({
+                            "success": True,
+                            "userQuery": query_text,
+                            "agentReply": reply,
+                            "response": reply,
+                            "content": [{"type": "text", "text": reply}],
+                            "asiOneSpaceUrl": "https://asi1.ai/chat/449bfcc6-32dc-4a17-9fc7-9e1dcc99d9a4?space=9aafc223-1cae-43af-b246-de7feceb76a2",
+                            "agentAddress": "agent1qwmawnyywfmhxgtyfl6uut9gkv4s36q4ykw220trle6053c4k8nrzvp98t4"
+                        })
+                    }
                 else:
                     res = {
                         "status": 404,

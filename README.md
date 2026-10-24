@@ -96,7 +96,12 @@ The project directly fulfills all mandatory requirements of the **ASI:One Agent 
 
 * ✅ **Agentverse Registered:** Pre-configured with a hosted script (`backend/agents/agentverse_hosted_agent.py`) deployable in 60 seconds on [Agentverse](https://agentverse.ai).
 * ✅ **Agent Chat Protocol (ACP):** Implements `uagents_core.contrib.protocols.chat` with `ChatMessage`, `ChatAcknowledgement`, and `TextContent`.
-* ✅ **Discoverable via ASI:One:** Queryable through natural language on [asi1.ai](https://asi1.ai) from any desktop or mobile browser.
+* ✅ **Discoverable via ASI:One:** Queryable through natural language on [asi1.ai](https://asi1.ai/chat/449bfcc6-32dc-4a17-9fc7-9e1dcc99d9a4?space=9aafc223-1cae-43af-b246-de7feceb76a2) from any desktop or mobile browser.
+* 🌐 **Official Live ASI:One Chat Space:** [https://asi1.ai/chat/449bfcc6-32dc-4a17-9fc7-9e1dcc99d9a4?space=9aafc223-1cae-43af-b246-de7feceb76a2](https://asi1.ai/chat/449bfcc6-32dc-4a17-9fc7-9e1dcc99d9a4?space=9aafc223-1cae-43af-b246-de7feceb76a2)
+* 📍 **Pinpoint Bottleneck Localization:**
+  * *"Is there traffic at Silk Board?"* → Pinpoints exact 650m bottleneck epicenter at Central Silk Board Bus Terminus & Flyover On-Ramp.
+  * *"What is the traffic situation at Central Junction?"* → Identifies exact 350m backlog opposite Metro Pillar #412 with Lanes 1 & 2 immobilized.
+  * *"Is Koramangala 4th Block clear?"* → Verifies 0m backlog and free-flowing green corridor.
 * ✅ **Intent-to-Action Execution:** Complete workflows execute natively within the chat stream without requiring a custom frontend:
   * *"Clear 108 Ambulance corridor on North road"* $\rightarrow$ Executes Pole A siren and green carpet preemption.
   * *"Report critical 6.8G crash on South road"* $\rightarrow$ Executes 108 CAD trauma dispatch with exact GPS coordinates.
