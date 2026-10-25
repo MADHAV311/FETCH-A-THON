@@ -173,6 +173,29 @@ LOCATION_KNOWLEDGE_BASE = {
         "agent_address": "agent1qindiranagar100ftcommercialsmart",
         "gps": "12.9784° N, 77.6408° E"
     },
+        "majestic": {
+        "name": "Majestic Kempegowda Bus Station & KSR Railway Hub",
+        "has_traffic": True,
+        "traffic_level": "SEVERE CONGESTION (RED)",
+        "badge_color": "🔴",
+        "exact_location": "Gubbi Thotadappa Road at Sangam Theatre Junction & Majestic BMTC/KSRTC Terminal Gates",
+        "backlog_stretch": "480 meters extending from Sangam Circle back to City Railway Station Underpass",
+        "affected_lanes": "All 3 approach lanes crawling due to inter-state KSRTC bus arrivals & auto-rickshaw queue spillover",
+        "gps_span": "12.9785° N, 77.5685° E (Underpass) ➔ 12.9767° N, 77.5713° E (Bus Terminal Gates)",
+        "avg_speed_kmh": 8.5,
+        "queue_cars": 42,
+        "delay_minutes": 11.2,
+        "signal_state": "SATURATION RED (38s remaining on Gubbi Thotadappa Road)",
+        "root_cause": "Heavy inter-city bus maneuvering across entry gates + commuter pedestrian surge exiting Metro lines.",
+        "bypass_route": "Sheshadri Road Flyover via Anand Rao Circle or Subedar Chatram Road",
+        "bypass_action": "Divert early via Anand Rao Circle Flyover to bypass surface terminal gates completely",
+        "time_saved_min": 7.4,
+        "fuel_saved_l": 0.58,
+        "inr_saved": 74.50,
+        "co2_abated_kg": 1.34,
+        "agent_address": "agent1qmajesticmetrohub2026central",
+        "gps": "12.9767° N, 77.5713° E"
+    },
     "whitefield": {
         "name": "Whitefield ITPL Main Road & Hope Farm Junction",
         "has_traffic": True,
@@ -391,7 +414,7 @@ def process_user_intent(user_text: str) -> str:
             "  3. Dynamically diverts commuters to 8th Cross Bypass, saving 6.2 minutes and ₹58.55 fuel.\n"
             "  4. Can initiate 0.05 FET micro-toll payments for fast-track priority slots."
         )
-    if "108" in text and ("agent" in text or "ambulance" in text or "profile" in text or "show" in text):
+    if "108" in text and ("agent" in text or "profile" in text or "show" in text or "who is" in text or "explain" in text):
         return (
             "🚑 **[AGENT PROFILE] 108Ambulance Priority Agent**\n\n"
             "• **Cryptographic Address:** `agent1qgs49qusgm4lylwpvf3pmkmlvhqsecvd6yelhwd3nvf8st5z8hy4c267naz`\n"

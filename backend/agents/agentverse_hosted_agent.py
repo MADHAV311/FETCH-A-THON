@@ -144,6 +144,29 @@ LOCATION_KNOWLEDGE_BASE = {
         "agent_address": "agent1q8thcrossringbypassgreenwavecorridor",
         "gps": "12.9220° N, 77.6320° E"
     },
+        "majestic": {
+        "name": "Majestic Kempegowda Bus Station & KSR Railway Hub",
+        "has_traffic": True,
+        "traffic_level": "SEVERE CONGESTION (RED)",
+        "badge_color": "🔴",
+        "exact_location": "Gubbi Thotadappa Road at Sangam Theatre Junction & Majestic BMTC/KSRTC Terminal Gates",
+        "backlog_stretch": "480 meters extending from Sangam Circle back to City Railway Station Underpass",
+        "affected_lanes": "All 3 approach lanes crawling due to inter-state KSRTC bus arrivals & auto-rickshaw queue spillover",
+        "gps_span": "12.9785° N, 77.5685° E (Underpass) ➔ 12.9767° N, 77.5713° E (Bus Terminal Gates)",
+        "avg_speed_kmh": 8.5,
+        "queue_cars": 42,
+        "delay_minutes": 11.2,
+        "signal_state": "SATURATION RED (38s remaining on Gubbi Thotadappa Road)",
+        "root_cause": "Heavy inter-city bus maneuvering across entry gates + commuter pedestrian surge exiting Metro lines.",
+        "bypass_route": "Sheshadri Road Flyover via Anand Rao Circle or Subedar Chatram Road",
+        "bypass_action": "Divert early via Anand Rao Circle Flyover to bypass surface terminal gates completely",
+        "time_saved_min": 7.4,
+        "fuel_saved_l": 0.58,
+        "inr_saved": 74.50,
+        "co2_abated_kg": 1.34,
+        "agent_address": "agent1qmajesticmetrohub2026central",
+        "gps": "12.9767° N, 77.5713° E"
+    },
     "whitefield": {
         "name": "Whitefield ITPL Main Road & Hope Farm Junction",
         "has_traffic": True,
@@ -303,55 +326,18 @@ def handle_user_intent(user_text: str) -> str:
         )
 
     # 8. Default Guide
+    # 7. Default Guide
     return (
         "🧭 **TrafficFlow-AI Assistant on ASI:One & Agentverse**\n\n"
         "Ask me to control signals, triage crashes, or check traffic at any place:\n"
-        "• *\"Is there traffic at Silk Board?\"* *(Pinpoints 650m backlog & bus terminus)*\n"
+        "• *\"how the majestic traffic?\"* *(Pinpoints 480m backlog at Bus Terminal)*\n"
+        "• *\"Is there traffic at Silk Board?\"* *(Pinpoints 650m backlog & flyover ramp)*\n"
         "• *\"Traffic situation at Central Junction?\"* *(Pinpoints Pillar #412)*\n"
         "• *\"Is Koramangala clear?\"*\n"
         "• *\"Clear 108 Ambulance corridor on North road\"*\n"
         "• *\"Report 6.8G critical crash\"*\n\n"
         "🌐 **Live ASI:One Chat Space:** `https://asi1.ai/chat/449bfcc6-32dc-4a17-9fc7-9e1dcc99d9a4?space=9aafc223-1cae-43af-b246-de7feceb76a2`"
     )
-            "• **Outcome:** Vehicles traversing through the corridor receive continuous green windows without stopping."
-        )
-
-    # 6. Real-Time Telemetry & Smart City Economics
-    elif any(k in text for k in ["traffic", "status", "congestion", "queue", "report", "stats", "savings", "metrics"]):
-        return (
-            "📊 **TrafficFlow-AI: Metropolitan Central Junction Telemetry**\n\n"
-            "**Live Operations:**\n"
-            "• **Active Phase:** North-South Green (Phase 1) | Speed Limit: 45 km/h\n"
-            "• **Controller:** Webster Demand-Responsive Adaptive AI\n"
-            "• **Vehicles Processed:** 7,420 vehicles\n"
-            "• **Current Total Queue:** 25 cars across 4 approaches\n\n"
-            "**Benchmark Deltas (vs. Conventional Fixed-Time):**\n"
-            "• **Average Wait Time:** **33.2s** vs 56.7s (**-41.4% Delay Reduction**)\n"
-            "• **Average Queue Length:** **25 cars** vs 44 cars (**-43.0% Queue Reduction**)\n"
-            "• **Throughput Gain:** **+30.0%** additional vehicles passed\n\n"
-            "**Indian Smart City Economics & MoRTH ROI:**\n"
-            "• **Fuel Saved:** 26.7 Liters (₹2,739 saved at ₹102.50/L)\n"
-            "• **Commuter Time Value Saved:** ₹3,340 (at ₹150.00/hour MoRTH delay rate)\n"
-            "• **Net Financial Savings:** **₹6,079.42**\n"
-            "• **Projected Annual Smart City ROI:** **₹142.28 Lakhs / Year**\n"
-            "• **CO₂ Prevented:** 61.73 kg | **Clean Air Rating:** A+"
-        )
-
-    # 7. Default Guide
-    else:
-        return (
-            "🚦 **Welcome to TrafficFlow-AI Assistant on ASI:One!**\n\n"
-            "I am the autonomous cyber-physical agent managing the Metropolitan Smart City Traffic Corridor. "
-            "I turn your intent into real-world traffic and emergency dispatch actions.\n\n"
-            "**Try asking me to:**\n"
-            "1. 📊 *\"What is the traffic situation and savings at Central Junction?\"*\n"
-            "2. 🚑 *\"Clear 108 Ambulance corridor on North road\"* *(Triggers Pole A 115dB siren & green carpet)*\n"
-            "3. 💥 *\"Report critical crash at South road with 6.8G impact\"* *(Auto 108 CAD dispatch + trauma center)*\n"
-            "4. 🛡️ *\"Report minor bumper scrape with 1.3G force\"* *(Demonstrates 108 call suppression to protect bandwidth)*\n"
-            "5. 🚶 *\"Activate pedestrian scramble for student crowd surge\"* *(Barnes Dance all-red walk)*\n"
-            "6. 🌊 *\"Synchronize arterial corridor for green wave\"* *(50 km/h platoon progression)*\n\n"
-            "What action would you like to execute?"
-        )
 
 @chat_proto.on_message(ChatMessage)
 async def handle_chat_message(ctx: Context, sender: str, msg: ChatMessage):

@@ -34,3 +34,7 @@ do_register.py
 
 # Local documents
 *.pdf
+*.docx
+*.pptx
+*.bak
+*video.html
